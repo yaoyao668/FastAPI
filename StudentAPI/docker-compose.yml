@@ -1,0 +1,19 @@
+
+services:
+  fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app
+      - db-data:/data
+    env_file:
+      - .env.example
+    environment:
+      - SQLITE_DATABASE=/data/database.db
+    restart: always
+
+volumes:
+  db-data:
