@@ -1,15 +1,20 @@
 import uvicorn
 from fastapi import FastAPI
 from app.database import engine
-from app import models , auth
+from app import models
+from app.routers import auth,updata,refresh,history,logout
 
-# 创建数据库表
+# Create Database Tables
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-# 包含路由
+#Included Routes
 app.include_router(auth.router)
+app.include_router(updata.router)
+app.include_router(refresh.router)
+app.include_router(history.router)
+app.include_router(logout.router)
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
